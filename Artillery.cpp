@@ -45,7 +45,6 @@ int main()
     cout << banner << endl
          << endl;
 
-    cout << tankPosition << " DEBUG" << endl;
     cout << "Enter your name commander! " << endl;
     getline(cin, playerName);
     cout << "Welcome to the unit " << playerName << "!\n The enemy aproaches and we need your expertise!\n";
@@ -80,8 +79,11 @@ int main()
     }
     for (i = 0; i <= 2; i++)
     {
-        cout << "Good Choice commander! " << difficulty << " Is not for everyone!\n Your tank is ready! Head for the field of battle to Victory!\n";
-        // cout << "\033[2J\033[1;1H"; // clears the screen utilizing some form of console black magic bulls**t. Pardon my french
+        if (win != 0)
+        {
+            return 0;
+        }
+        cout << "Good Choice " << playerName << " " << difficulty << " Is not for everyone!\n Your tank is ready! Head for the field of battle to Victory!\n";
         cout << "Enter your turret angle!" << endl;
         getline(cin, userInput);
         angle = stod(userInput);
@@ -90,10 +92,7 @@ int main()
         getline(cin, userInput);
         velocity = stod(userInput);
         cout << "Commander we have a shooting solution! Our angle is: " << angle << " Degrees and our veloctiy is " << velocity << "! Firing!" << endl;
-        cout << "DEBUG: ENTER TEST POSITION: ";
-        getline(cin, userInput);
-        fireDistance = stoi(userInput);
-        // fireDistance = (velocity * cos(angle * (M_PI / 180)));
+        fireDistance = (velocity * cos(angle * (M_PI / 180)));
         cout << "Commander! Our payload traveled " << fireDistance << " miles!" << endl;
         int high = (tankPosition + graceValue);
         int low = (fireDistance - graceValue);
@@ -105,7 +104,8 @@ int main()
                 cout << "Congrats Commander! A succsessful hit! The Enenmy has been defeated!" << endl;
                 cout << "The enemy was located at a distance of: " << tankPosition << " Miles! You have won!" << endl;
                 cout << "----YOU WIN!------" << endl
-                     << "-------GAME OVER--------";
+                     << "-------GAME OVER--------" << endl;
+                win = 1;
             }
             else
             {
@@ -126,7 +126,8 @@ int main()
                 cout << "Congrats Commander! A succsessful hit! The Enenmy has been defeated!" << endl;
                 cout << "The enemy was located at a distance of: " << tankPosition << " Miles! You have won!" << endl;
                 cout << "----YOU WIN!------" << endl
-                     << "-------GAME OVER--------";
+                     << "-------GAME OVER--------" << endl;
+                win = 1;
             }
             else
             {
@@ -147,7 +148,8 @@ int main()
                 cout << "Congrats Commander! A succsessful hit! The Enenmy has been defeated!" << endl;
                 cout << "The enemy was located at a distance of: " << tankPosition << " Miles! You have won!" << endl;
                 cout << "----YOU WIN!------" << endl
-                     << "-------GAME OVER--------";
+                     << "-------GAME OVER--------" << endl;
+                win = 1;
             }
             else
             {
