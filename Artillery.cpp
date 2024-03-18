@@ -5,22 +5,33 @@
  * description:     An artillery game
  * The String conversion to lowercase tool utilizing transform is from my game "TheGame", avalible at:
  * https://github.com/GlacierPark19/TheGame
+ * This program (including a modified variant) is also avalible on GitHub
  * This function utilizes libraries from the GNU C++ Libraries
+ * This program code can be viewed at: https://github.com/GlacierPark19/MasterGunner
  */
 
 #include <iostream>
+#include <math.h>
+#include <string>
 #include <algorithm>
 using namespace std;
 
 int main()
 {
+    int high, low;
+    int graceValue = 0;
+    string userInput;
     double velocity = 0.0;
     double angle = 0.0;
-    int difficultyLevel = 10;
-    int minDistance = 0, maxDistance = 0, tankPosition = 0, roundNumber = 0;
+    int difficultyLevel = 99;
+    int fireDistance = 0;
+    int minDistance = 100, maxDistance = 200, roundNumber = 0, i;
     string difficulty = "";
+    int win = 0;
     string playerName = "";
-
+    // Game init block. Handles enemy position and other tings
+    srand(time(NULL));
+    int tankPosition = rand() % (maxDistance - minDistance + 1) + minDistance;
     string banner;
     banner += "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
     banner += "  _______          _      ____        _   _   _       \n";
@@ -33,7 +44,7 @@ int main()
 
     cout << banner << endl
          << endl;
-    cout << "Copyright 2024 M Chapman.\n Make sure to check out our sister game, MasterGunner!\n";
+
     cout << "Enter your name commander! " << endl;
     getline(cin, playerName);
     cout << "Welcome to the unit " << playerName << "!\n The enemy aproaches and we need your expertise!\n";
@@ -48,24 +59,115 @@ int main()
     if (difficulty == "easy")
     {
         difficultyLevel = 0;
+        graceValue = 20;
     }
     else
     {
         if (difficulty == "medium")
         {
             difficultyLevel = 1;
+            graceValue = 10;
         }
         else
         {
             if (difficulty == "hard")
             {
                 difficultyLevel = 2;
+                graceValue = 5;
             }
         }
     }
-
-    cout << "Good Choice commander! " << difficulty << " Is not for everyone!\n Your tank is ready! Head for the field of battle to Victory!\n";
-    // cout << "\033[2J\033[1;1H"; // clears the screen utilizing some form of console black magic bulls**t. Pardon my french
-
-    return 0;
+    for (i = 0; i <= 2; i++)
+    {
+        if (win != 0)
+        {
+            return 0;
+        }
+        cout << "Good Choice " << playerName << " " << difficulty << " Is not for everyone!\n Your tank is ready! Head for the field of battle to Victory!\n";
+        cout << "Enter your turret angle!" << endl;
+        getline(cin, userInput);
+        angle = stod(userInput);
+        cout << "Your Firing angle is " << angle << " degrees!" << endl;
+        cout << "Enter your firing power! (Velocity)" << endl;
+        getline(cin, userInput);
+        velocity = stod(userInput);
+        cout << "Commander we have a shooting solution! Our angle is: " << angle << " Degrees and our veloctiy is " << velocity << "! Firing!" << endl;
+        fireDistance = (velocity * cos(angle * (M_PI / 180)));
+        cout << "Commander! Our payload traveled " << fireDistance << " miles!" << endl;
+        int high = (tankPosition + graceValue);
+        int low = (fireDistance - graceValue);
+        switch (difficultyLevel)
+        {
+        case 0:
+            if ((fireDistance == tankPosition) || (low <= tankPosition <= high))
+            {
+                cout << "Congrats Commander! A succsessful hit! The Enenmy has been defeated!" << endl;
+                cout << "The enemy was located at a distance of: " << tankPosition << " Miles! You have won!" << endl;
+                cout << "----YOU WIN!------" << endl
+                     << "-------GAME OVER--------" << endl;
+                win = 1;
+            }
+            else
+            {
+                cout << "Our shot missed! ";
+                if (fireDistance < tankPosition)
+                {
+                    cout << "Our shot was too Short!" << endl;
+                }
+                if (fireDistance > tankPosition)
+                {
+                    cout << "Our shot was too Long!" << endl;
+                }
+            }
+            break;
+        case 1:
+            if ((fireDistance == tankPosition) || (low <= tankPosition <= high))
+            {
+                cout << "Congrats Commander! A succsessful hit! The Enenmy has been defeated!" << endl;
+                cout << "The enemy was located at a distance of: " << tankPosition << " Miles! You have won!" << endl;
+                cout << "----YOU WIN!------" << endl
+                     << "-------GAME OVER--------" << endl;
+                win = 1;
+            }
+            else
+            {
+                cout << "Our shot missed! ";
+                if (fireDistance < tankPosition)
+                {
+                    cout << "Our shot was too Short!" << endl;
+                }
+                if (fireDistance > tankPosition)
+                {
+                    cout << "Our shot was too Long!" << endl;
+                }
+            }
+            break;
+        case 3:
+            if ((fireDistance == tankPosition) || (low <= tankPosition <= high))
+            {
+                cout << "Congrats Commander! A succsessful hit! The Enenmy has been defeated!" << endl;
+                cout << "The enemy was located at a distance of: " << tankPosition << " Miles! You have won!" << endl;
+                cout << "----YOU WIN!------" << endl
+                     << "-------GAME OVER--------" << endl;
+                win = 1;
+            }
+            else
+            {
+                cout << "Our shot missed! ";
+                if (fireDistance < tankPosition)
+                {
+                    cout << "Our shot was too Short!" << endl;
+                }
+                if (fireDistance > tankPosition)
+                {
+                    cout << "Our shot was too Long!" << endl;
+                }
+            }
+            break;
+        }
+        cout << "****************************" << endl
+             << endl
+             << endl
+             << endl;
+    }
 }
