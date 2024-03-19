@@ -79,7 +79,7 @@ int main()
     }
     for (i = 0; i <= 2; i++)
     {
-        if (win != 0)
+        if (win = !0)
         {
             return 0;
         }
